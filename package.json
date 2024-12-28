@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --open --mode development",
     "start-prod": "node app.js",
     "test": "jest",
-    "push": "git add . && git commit -m 'completing exercise' && git push",
+    "push": "git add . && git commit -m '#skip this one' && git push",
     "test:e2e": "playwright test --project=chromium",
     "eslint": "eslint './**/*.{js,jsx}'",
     "build": "webpack --mode production"
