@@ -29,8 +29,7 @@ primary_region = 'waw'
   timeout = "5s"
   path = "/health"
 
-[deploy]
-  strategy = "canary"
+
 
 [[vm]]
   memory = '1gb'
