@@ -22,8 +22,6 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: initiate playwright
-        run: npx playwright install
-      - name: start localhost development server for playwright
-        run: npm run start
+        run: npx playwright install --with-deps
       - name: Run e2e-tests
         run: npm run test:e2e
