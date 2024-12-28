@@ -1,4 +1,4 @@
-1. **Linting in Python**  
+1. **Linting/testing/building in Python**  
    In Python, two common options for linting are `pylint` and `mypy`. Both can be integrated into an IDE that is useful for writing clean code. For testing, libraries like `unittest`, `doctest`, and `pytest` are commonly used, each bringing its unique features.  
    Generally, Python apps don't require building, unless you want to compile them into an executable, in which case the `PyInstaller` library is useful.
 
