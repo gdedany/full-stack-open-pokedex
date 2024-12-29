@@ -62,8 +62,15 @@ jobs:
     runs-on: ubuntu-latest
     name: sends a webhook notification to discord
     steps:
-      - name: Discord Notify Webhook
+      - name: Discord Success Webhook
+        if: ${{ success() }}
         uses: jasongitmail/fast-webhook@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
-          json: '{"content": "hello world"}'
+          json: '{"content": "A new version of pokedex deployed"}'
+      - name: Discord Failure Webhook
+        if: ${{ failure() || cancelled() }}
+        uses: jasongitmail/fast-webhook@v1
+        with:
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          json: '{"content": "Failed to deploy a new version :() "}'
