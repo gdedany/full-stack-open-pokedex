@@ -62,8 +62,9 @@ jobs:
     runs-on: ubuntu-latest
     name: sends a webhook notification to discord
     steps:
-      - name: Discord Notification
-        uses: Ilshidur/action-discord@v2
+      - name: Discord Notify Webhook
+        uses: EDUJOS/ds-webhook@v1.0.0
         with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          message: "Test succeeded."
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          title: Hello world
+          description: Hello world
