@@ -63,8 +63,8 @@ jobs:
     name: sends a webhook notification to discord
     steps:
       - name: Discord Notify Webhook
-        uses: EDUJOS/ds-webhook@v1.0.0
+        uses: magdemajt/trigger-webhook@v1
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
-          title: Hello world
-          description: Hello world
+          url: ${{ secrets.DISCORD_WEBHOOK }}
+          json: '{"content": "hello world"}'
+          headers: '{"Content-Type": "application/json"}'
