@@ -62,9 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     name: sends a webhook notification to discord
     steps:
-      - name: Test Info
-        uses: rjstone/discord-webhook-notify@v1
+      - name: Discord Notification
+        uses: Ilshidur/action-discord@v2
         with:
-          severity: info
-          details: Test succeeded.
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          message: "Test succeeded."
