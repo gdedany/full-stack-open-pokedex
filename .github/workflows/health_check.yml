@@ -2,7 +2,7 @@ name: Health checks
 
 on:
   schedule:
-    - cron: "30 12 * * *"
+    - cron: "20 9 * * *"
   pull_request:
     branches: [main]
     types: [opened, synchronize]
