@@ -57,20 +57,60 @@ jobs:
           DEFAULT_BUMP: "patch"
 
   send_webhook:
-    if: ${{ contains(github.event.head_commit.message, '#skip') }}
-    needs: [simple_deployment_pipeline]
+    if: ${{ !contains(github.event.head_commit.message, '#skip') }} # Runs if #skip is not found in commit message
+    needs: [deploy]
     runs-on: ubuntu-latest
-    name: sends a webhook notification to discord
+    name: Sends a webhook notification to Discord
     steps:
       - name: Discord Success Webhook
         if: ${{ success() }}
         uses: jasongitmail/fast-webhook@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
-          json: '{"content": "A new version of pokedex deployed"}'
+          json: |
+            {
+              "content": "A new version of pokedex deployed successfully!",
+              "embeds": [
+                {
+                  "title": "Deployment Details",
+                  "fields": [
+                    {
+                      "name": "Commit Hash",
+                      "value": "${{ github.sha }}",
+                      "inline": true
+                    },
+                    {
+                      "name": "Commit Message",
+                      "value": "${{ github.event.head_commit.message }}",
+                      "inline": true
+                    }
+                  ]
+                }
+              ]
+
       - name: Discord Failure Webhook
         if: ${{ failure() || cancelled() }}
         uses: jasongitmail/fast-webhook@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
-          json: '{"content": "Failed to deploy a new version :() "}'
+          json: |
+            {
+              "content": "Failed to deploy a new version :(",
+              "embeds": [
+                {
+                  "title": "Deployment Failure Details",
+                  "fields": [
+                    {
+                      "name": "Commit Hash",
+                      "value": "${{ github.sha }}",
+                      "inline": true
+                    },
+                    {
+                      "name": "Commit Message",
+                      "value": "${{ github.event.head_commit.message }}",
+                      "inline": true
+                    }
+                  ]
+                }
+              ]
+            }
