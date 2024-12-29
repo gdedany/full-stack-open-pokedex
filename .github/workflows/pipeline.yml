@@ -55,12 +55,32 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: "patch"
+
   send_webhook:
     if: ${{ contains(github.event.head_commit.message, '#skip') }}
     runs-on: ubuntu-latest
     name: sends a webhook notification to discord
     steps:
-      - uses: "hugoalh/send-discord-webhook-ghaction@v7.0.0"
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
         with:
-          key: "${{secrets.DISCORD_WEBHOOK_KEY}}"
-          content: "Hello, world!"
+          severity: info
+          details: Test Succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Test Failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: failure()
+        with:
+          severity: error
+          details: Test Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+
+      - name: Test Cancelled
+        uses: rjstone/discord-webhook-notify@v1
+        if: cancelled()
+        with:
+          severity: warn
+          details: Test Cancelled!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
