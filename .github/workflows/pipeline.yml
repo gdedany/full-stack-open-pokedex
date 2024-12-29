@@ -63,8 +63,7 @@ jobs:
     name: sends a webhook notification to discord
     steps:
       - name: Discord Notify Webhook
-        uses: magdemajt/trigger-webhook@v1
+        uses: jasongitmail/fast-webhook@v1
         with:
           url: ${{ secrets.DISCORD_WEBHOOK }}
           json: '{"content": "hello world"}'
-          headers: '{"Content-Type": "application/json"}'
